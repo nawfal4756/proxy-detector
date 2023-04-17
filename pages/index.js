@@ -50,7 +50,7 @@ export default function Home({ip}) {
       <div>
         {ip}
         <br />
-        {ipArray[1].trim()}
+        {ipArray[1]?.trim()}
       </div>
     </>
   )
