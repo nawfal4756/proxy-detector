@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react'
 import requestIp from 'request-ip'
 
 export default function Home({ip}) {
-  const [ipArray, setIpArray] = useState([])
+  const [ipArray, setIpArray] = useState([''])
   useEffect(() => {
-    async function find_public_IP() {
+    function find_public_IP() {
       //RTCPeerConnection will establish a connection between local and remote host and then returns the connection variable
       var my_RTC_Peer_Connection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
       var peer_connection = new my_RTC_Peer_Connection({iceServers: [{urls: "stun:stun.l.google.com:19302"}]}), //configurations of peer_connection
@@ -16,7 +16,7 @@ export default function Home({ip}) {
 
       function find_ip_locally(ip) {
         if (!local_IP_arr[ip]) {
-          setIpArray([...ipArray, ip])
+          setIpArray(ipArray => [...ipArray, ip])
         }
         local_IP_arr[ip] = true;
       }
@@ -50,7 +50,7 @@ export default function Home({ip}) {
       <div>
         {ip}
         <br />
-        {ipArray}
+        {ipArray[1].trim()}
       </div>
     </>
   )
