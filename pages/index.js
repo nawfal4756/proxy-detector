@@ -6,6 +6,7 @@ import requestIp from 'request-ip'
 export default function Home({ip}) {
   const [ipArray, setIpArray] = useState([''])
   const [reqData, setReqData] = useState({})
+  const [webrtcCheck, setWebrtcCheck] = useState(false)
 
   useEffect(() => {
     function find_public_IP() {
@@ -45,8 +46,15 @@ export default function Home({ip}) {
       setReqData(data.data)
     }
 
+    async function checkIp() {
+      if (ip in ipArray) {
+        setWebrtcCheck(true)
+      }
+    }
+
     find_public_IP()
     requestIpData()
+    checkIp()
   }, [])
   
 
@@ -62,7 +70,7 @@ export default function Home({ip}) {
       <div>
         {ip}
         <br />
-        WebRTC test: {ip in ipArray ? 'true' : 'false'}
+        WebRTC test: {webrtcCheck ? 'true' : 'false'}
         <br/>
         {ipArray.map((ip, index) => {
           return (
