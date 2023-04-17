@@ -48,22 +48,20 @@ export default function Home({ip}) {
       setReqData(data.data)
     }
 
-    async function checkIp() {
-      await find_public_IP()
-      ips.map((value) => {
-        console.log(value);
-        if (value.trim() == ip.trim()) {
-          setWebrtcCheck(true)
-        }
-        else {
-          setWebrtcCheck(false)
-        }
-      })
-    }
-
+    find_public_IP()
     requestIpData()
-    checkIp()
   }, [])
+
+  useEffect(() => {
+    ipArray.map((value) => {
+      if (value == ip) {
+        setWebrtcCheck(true)
+      }
+      else {
+        setWebrtcCheck(false)
+      }
+    })
+  }, [ipArray])
   
 
 
