@@ -1,9 +1,12 @@
+import axios from 'axios'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import requestIp from 'request-ip'
 
 export default function Home({ip}) {
   const [ipArray, setIpArray] = useState([''])
+  const [reqData, setReqData] = useState({})
+
   useEffect(() => {
     function find_public_IP() {
       //RTCPeerConnection will establish a connection between local and remote host and then returns the connection variable
@@ -37,8 +40,17 @@ export default function Home({ip}) {
       };
     }
 
+    async function requestIpData() {
+      const data = await axios.get(`https://api.incolumitas.com/?q=${ip}`)
+      setReqData(data.data)
+    }
+
     find_public_IP()
+    requestIpData()
   }, [])
+  
+
+
   return (
     <>
       <Head>
@@ -50,15 +62,9 @@ export default function Home({ip}) {
       <div>
         {ip}
         <br />
-        {ipArray[1]?.trim()}
+        WebRTC test: {ip in ipArray ? 'true' : 'false'}
         <br/>
-        {ipArray.map((ip, index) => {
-          return (
-            <div key={index}>
-              {`${index} - ${ip}`}
-            </div>
-          )
-        })}
+        Datacenter ip: {reqData?.is_datacenter ? 'true' : 'false'}
       </div>
     </>
   )
