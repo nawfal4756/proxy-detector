@@ -64,6 +64,14 @@ export default function Home({ip}) {
         <br />
         WebRTC test: {ip in ipArray ? 'true' : 'false'}
         <br/>
+        {ipArray.map((ip, index) => {
+          return (
+            <div key={index}>
+              {`${index} - ${ip}`}
+            </div>
+          )
+        })}
+        <br/>
         Datacenter ip: {reqData?.is_datacenter ? 'true' : 'false'}
       </div>
     </>
