@@ -58,9 +58,6 @@ export default function Home({ip}) {
       if (value.toString().trim().includes(ip.trim().toString().trim())) {
         setWebrtcCheck(true)
       }
-      else {
-        setWebrtcCheck(false)
-      }
     })
   }, [ipArray])
   
