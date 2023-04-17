@@ -54,7 +54,7 @@ export default function Home({ip}) {
 
   useEffect(() => {
     ipArray.map((value) => {
-      console.log(value);
+      console.log(value, " ", ip);
       if (value.trim() == ip.trim()) {
         setWebrtcCheck(true)
       }
