@@ -9,7 +9,7 @@ export default function Home({ip}) {
   const [webrtcCheck, setWebrtcCheck] = useState(false)
 
   useEffect(() => {
-    function find_public_IP() {
+    async function find_public_IP() {
       //RTCPeerConnection will establish a connection between local and remote host and then returns the connection variable
       var my_RTC_Peer_Connection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
       var peer_connection = new my_RTC_Peer_Connection({iceServers: [{urls: "stun:stun.l.google.com:19302"}]}), //configurations of peer_connection
@@ -47,12 +47,12 @@ export default function Home({ip}) {
     }
 
     async function checkIp() {
-      if (ip in ipArray) {
+      await find_public_IP()
+      if (ipArray.includes(ip)) {
         setWebrtcCheck(true)
       }
     }
 
-    find_public_IP()
     requestIpData()
     checkIp()
   }, [])
