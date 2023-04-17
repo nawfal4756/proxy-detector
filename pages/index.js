@@ -51,6 +51,14 @@ export default function Home({ip}) {
         {ip}
         <br />
         {ipArray[1]?.trim()}
+        <br/>
+        {ipArray.map((ip, index) => {
+          return (
+            <div key={index}>
+              {`${index} - ${ip}`}
+            </div>
+          )
+        })}
       </div>
     </>
   )
