@@ -48,9 +48,12 @@ export default function Home({ip}) {
 
     async function checkIp() {
       await find_public_IP()
-      ipArray.map((value, index) => {
-        if (value.trim() === ip.trim()) {
+      ipArray.map((value) => {
+        if (value.trim() == ip) {
           setWebrtcCheck(true)
+        }
+        else {
+          setWebrtcCheck(false)
         }
       })
     }
