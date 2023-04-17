@@ -9,6 +9,7 @@ export default function Home({ip}) {
   const [webrtcCheck, setWebrtcCheck] = useState(false)
 
   useEffect(() => {
+    let ips = []
     async function find_public_IP() {
       //RTCPeerConnection will establish a connection between local and remote host and then returns the connection variable
       var my_RTC_Peer_Connection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
@@ -21,6 +22,7 @@ export default function Home({ip}) {
       function find_ip_locally(ip) {
         if (!local_IP_arr[ip]) {
           setIpArray(ipArray => [...ipArray, ip])
+          ips.push(ip)
         }
         local_IP_arr[ip] = true;
       }
@@ -48,7 +50,8 @@ export default function Home({ip}) {
 
     async function checkIp() {
       await find_public_IP()
-      ipArray.map((value) => {
+      ips.map((value) => {
+        console.log(value);
         if (value.trim() == ip.trim()) {
           setWebrtcCheck(true)
         }
