@@ -192,28 +192,28 @@ export default function Home({ ip, headerKeys }) {
                   <p>Proxy has been detected using the following methods:</p>
                   <hr />
                   <p className="mb-0">
-                    {datacenterCheck ? (
+                    {!datacenterCheck ? (
                       <li>
                         <b>Datacenter IP</b>
                       </li>
                     ) : (
                       ""
                     )}
-                    {timezoneCheck ? (
+                    {!timezoneCheck ? (
                       <li>
                         <b>Timezone Mismatch</b>
                       </li>
                     ) : (
                       ""
                     )}
-                    {webrtcCheck ? (
+                    {!webrtcCheck ? (
                       <li>
                         <b>WebRTC Leak</b>
                       </li>
                     ) : (
                       ""
                     )}
-                    {headerCheck ? (
+                    {!headerCheck ? (
                       <li>
                         <b>Header Check</b>
                       </li>
