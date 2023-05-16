@@ -66,10 +66,10 @@ export default function Home({ ip, headerKeys }) {
       setReqData(data.data);
       let dataStored = data.data;
       if (
-        dataStored.is_datacenter ||
-        dataStored.is_vpn ||
-        dataStored.is_tor ||
-        dataStored.is_proxy
+        !dataStored.is_datacenter ||
+        !dataStored.is_vpn ||
+        !dataStored.is_tor ||
+        !dataStored.is_proxy
       ) {
         setDatacenterCheck(true);
         setIpCheck(true);
@@ -78,7 +78,7 @@ export default function Home({ ip, headerKeys }) {
         data.data.location?.timezone
       );
       const localTime = DateTime.now();
-      if (ipTime.zoneName != localTime.zoneName) {
+      if (ipTime.zoneName == localTime.zoneName) {
         setTimezoneCheck(true);
         setIpCheck(true);
       }
@@ -175,7 +175,7 @@ export default function Home({ ip, headerKeys }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {ipCheck ? (
+      {!ipCheck ? (
         <div className="vh-100">
           <div className="container h-100">
             <div className="row d-flex align-items-center justify-content-center mt-4">
