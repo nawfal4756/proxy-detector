@@ -8,7 +8,7 @@ export default function Home({ ip, headerKeys, apiData }) {
   const [ipArray, setIpArray] = useState([""]);
   const [reqData, setReqData] = useState({});
   const [webrtcCheck, setWebrtcCheck] = useState(false);
-  const [headerCheck, setHeaderCheck] = useState(false);
+  const [headerCheck, setHeaderCheck] = useState(true);
   const [timezoneCheck, setTimezoneCheck] = useState(false);
   const [datacenterCheck, setDatacenterCheck] = useState(false);
   const [ipCheck, setIpCheck] = useState(false);
@@ -142,7 +142,7 @@ export default function Home({ ip, headerKeys, apiData }) {
       ];
       headerKeys.map((value) => {
         if (blackListedHeader.includes(value.toString().trim().toLowerCase())) {
-          setHeaderCheck(true);
+          setHeaderCheck(false);
         }
       });
     }
@@ -354,7 +354,7 @@ export async function getServerSideProps({ req, res }) {
   const ip = requestIp.getClientIp(req);
   const headers = req.headers;
   let headerKeys = Object.keys(headers);
-  let data = await axios.get(`https://api.ipgeolocation.io/ipgeo?apiKey=${process.env.API_KEY}&ip=103.86.55.11`)
+  let data = await axios.get(`https://api.ipgeolocation.io/ipgeo?apiKey=${process.env.API_KEY}&ip=${ip}`)
 
   return {
     props: {
