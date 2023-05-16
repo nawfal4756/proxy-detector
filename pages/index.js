@@ -178,8 +178,8 @@ export default function Home({ ip, headerKeys }) {
       {ipCheck ? (
         <div className="vh-100">
           <div className="container h-100">
-            <div className="row d-flex align-items-center justify-content-center">
-              <div className="col-md-12">
+            <div className="row d-flex align-items-center justify-content-center mt-4">
+              <div className="col-sm-12">
                 <div className="alert alert-danger" role="alert">
                   <h4 className="alert-heading">Proxy Detected</h4>
                   <p>Proxy has been detected using the following methods:</p>
@@ -215,6 +215,9 @@ export default function Home({ ip, headerKeys }) {
                     )}
                   </p>
                 </div>
+              </div>
+              <div className="col-sm-12">
+                <button className="btn btn-secondary" onClick={() => {setIpCheck(false)}}>View Stats</button>
               </div>
             </div>
           </div>
