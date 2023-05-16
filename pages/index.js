@@ -78,6 +78,8 @@ export default function Home({ ip, headerKeys }) {
         data.data.location?.timezone
       );
       const localTime = DateTime.now();
+      console.log(ipTime, ipTime.zoneName);
+      console.log(localTime, localTime.zoneName);
       if (ipTime.zoneName == localTime.zoneName) {
         setTimezoneCheck(true);
         setIpCheck(true);
@@ -175,7 +177,7 @@ export default function Home({ ip, headerKeys }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {!ipCheck ? (
+      {!headerCheck || !webrtcCheck || !timezoneCheck || !datacenterCheck ? (
         <div className="vh-100">
           <div className="container h-100">
             <div className="row d-flex align-items-center justify-content-center mt-4">
