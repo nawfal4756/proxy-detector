@@ -4,7 +4,7 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import requestIp from "request-ip";
 
-export default function Home({ ip, headerKeys }) {
+export default function Home({ ip, headerKeys, apiData }) {
   const [ipArray, setIpArray] = useState([""]);
   const [reqData, setReqData] = useState({});
   const [webrtcCheck, setWebrtcCheck] = useState(false);
@@ -77,10 +77,9 @@ export default function Home({ ip, headerKeys }) {
 
     async function checkTimezone() {
       const localTime = DateTime.now();
-      let data = await axios.get(`http://ip-api.com/json/${ip}`)
-      if (data.data.timezone == localTime.zoneName) {
+      if (apiData.time_zone.name == localTime.zoneName) {
         setTimezoneCheck(true);
-      } 
+      }     
     }
 
     function checkHeaders() {
@@ -152,7 +151,7 @@ export default function Home({ ip, headerKeys }) {
     find_public_IP();
     requestIpData();
     checkTimezone();
-  }, [ip, headerKeys]);
+  }, [ip, headerKeys, apiData]);
 
   useEffect(() => {
     ipArray.map((value) => {
@@ -368,11 +367,13 @@ export async function getServerSideProps({ req, res }) {
   const ip = requestIp.getClientIp(req);
   const headers = req.headers;
   let headerKeys = Object.keys(headers);
+  let data = await axios.get(`https://api.ipgeolocation.io/ipgeo?apiKey=${process.env.API_KEY}&ip=103.86.55.11`)
 
   return {
     props: {
       ip,
       headerKeys,
+      apiData: data.data,
     },
   };
 }
