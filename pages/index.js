@@ -8,7 +8,7 @@ export default function Home({ ip, headerKeys, apiData }) {
   const [ipArray, setIpArray] = useState([""]);
   const [reqData, setReqData] = useState({});
   const [webrtcCheck, setWebrtcCheck] = useState(false);
-  const [headerCheck, setHeaderCheck] = useState(true);
+  const [headerCheck, setHeaderCheck] = useState(false);
   const [timezoneCheck, setTimezoneCheck] = useState(false);
   const [datacenterCheck, setDatacenterCheck] = useState(false);
   const [ipCheck, setIpCheck] = useState(false);
@@ -142,7 +142,7 @@ export default function Home({ ip, headerKeys, apiData }) {
       ];
       headerKeys.map((value) => {
         if (blackListedHeader.includes(value.toString().trim().toLowerCase())) {
-          setHeaderCheck(false);
+          setHeaderCheck(true);
         }
       });
     }
