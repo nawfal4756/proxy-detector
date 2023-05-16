@@ -73,15 +73,14 @@ export default function Home({ ip, headerKeys }) {
       ) {
         setDatacenterCheck(true);
       }
-      let ipTime = DateTime.fromISO(data.data.location?.local_time).setZone(
-        data.data.location?.timezone
-      );
+    }
+
+    async function checkTimezone() {
       const localTime = DateTime.now();
-      console.log(ipTime, ipTime.zoneName);
-      console.log(localTime, localTime.zoneName);
-      if (ipTime.zoneName == localTime.zoneName) {
+      let data = await axios.get(`http://ip-api.com/json/${ip}`)
+      if (data.data.timezone == localTime.zoneName) {
         setTimezoneCheck(true);
-      }
+      } 
     }
 
     function checkHeaders() {
@@ -152,6 +151,7 @@ export default function Home({ ip, headerKeys }) {
     checkHeaders();
     find_public_IP();
     requestIpData();
+    checkTimezone();
   }, [ip, headerKeys]);
 
   useEffect(() => {
@@ -172,7 +172,7 @@ export default function Home({ ip, headerKeys }) {
   }, [headerCheck, webrtcCheck, timezoneCheck, datacenterCheck]);
 
   return (
-    <>
+    <div>
       <Head>
         <title>Proxy Detector</title>
         <meta
@@ -230,7 +230,7 @@ export default function Home({ ip, headerKeys }) {
           </div>
         </div>
       ) : (
-        <>
+        <div>
           <nav className="navbar navbar-expand-sm navbar-light bg-light">
             <div className="container">
               <a className="navbar-brand" href="#">
@@ -358,9 +358,9 @@ export default function Home({ ip, headerKeys }) {
               </div>
             </div>
           </div>
-        </>
+        </div>
       )}
-    </>
+    </div>
   );
 }
 
