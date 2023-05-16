@@ -339,7 +339,7 @@ export default function Home({ ip, headerKeys, apiData }) {
                       Includes: Datacenter, VPN, TOR, Proxy
                     </p>
                     <p className="card-text">
-                      Status: {headerCheck ? "True" : "False"}
+                      Status: {datacenterCheck ? "True" : "False"}
                     </p>
                   </div>
                 </div>
