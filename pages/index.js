@@ -64,13 +64,11 @@ export default function Home({ ip, headerKeys, apiData }) {
     async function requestIpData() {
       const data = await axios.get(`https://api.incolumitas.com/?q=${ip}`);
       setReqData(data.data);
-      console.log(data.data);
       let dataStored = data.data;
-      console.log(dataStored.is_datacenter, dataStored.is_vpn, dataStored.is_tor, dataStored.is_proxy, !dataStored.is_datacenter || !dataStored.is_vpn || !dataStored.is_tor || !dataStored.is_proxy)
       if (
-        !dataStored.is_datacenter ||
-        !dataStored.is_vpn ||
-        !dataStored.is_tor ||
+        !dataStored.is_datacenter &&
+        !dataStored.is_vpn &&
+        !dataStored.is_tor &&
         !dataStored.is_proxy
       ) {
         setDatacenterCheck(true);
