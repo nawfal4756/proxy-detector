@@ -64,6 +64,7 @@ export default function Home({ ip, headerKeys, apiData }) {
     async function requestIpData() {
       const data = await axios.get(`https://api.incolumitas.com/?q=${ip}`);
       setReqData(data.data);
+      console.log(data.data);
       let dataStored = data.data;
       if (
         !dataStored.is_datacenter ||
