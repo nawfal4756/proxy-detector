@@ -72,7 +72,6 @@ export default function Home({ ip, headerKeys }) {
         !dataStored.is_proxy
       ) {
         setDatacenterCheck(true);
-        setIpCheck(true);
       }
       let ipTime = DateTime.fromISO(data.data.location?.local_time).setZone(
         data.data.location?.timezone
@@ -82,7 +81,6 @@ export default function Home({ ip, headerKeys }) {
       console.log(localTime, localTime.zoneName);
       if (ipTime.zoneName == localTime.zoneName) {
         setTimezoneCheck(true);
-        setIpCheck(true);
       }
     }
 
@@ -147,7 +145,6 @@ export default function Home({ ip, headerKeys }) {
       headerKeys.map((value) => {
         if (blackListedHeader.includes(value.toString().trim().toLowerCase())) {
           setHeaderCheck(true);
-          setIpCheck(true);
         }
       });
     }
@@ -161,10 +158,18 @@ export default function Home({ ip, headerKeys }) {
     ipArray.map((value) => {
       if (value.toString().trim().includes(ip.trim().toString().trim())) {
         setWebrtcCheck(true);
-        setIpCheck(true);
       }
     });
   }, [ip, ipArray]);
+
+  useEffect(() => {
+    if (!headerCheck || !webrtcCheck || !timezoneCheck || !datacenterCheck) {
+      setIpCheck(false);
+    }
+    if (headerCheck && webrtcCheck && timezoneCheck && datacenterCheck) {
+      setIpCheck(true);
+    }
+  }, [headerCheck, webrtcCheck, timezoneCheck, datacenterCheck]);
 
   return (
     <>
@@ -177,7 +182,7 @@ export default function Home({ ip, headerKeys }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {!headerCheck || !webrtcCheck || !timezoneCheck || !datacenterCheck ? (
+      {!ipCheck ? (
         <div className="vh-100">
           <div className="container h-100">
             <div className="row d-flex align-items-center justify-content-center mt-4">
@@ -219,7 +224,7 @@ export default function Home({ ip, headerKeys }) {
                 </div>
               </div>
               <div className="col-sm-12">
-                <button className="btn btn-secondary" onClick={() => {setIpCheck(false)}}>View Stats</button>
+                <button className="btn btn-secondary" onClick={() => {setIpCheck(!ipCheck)}}>View Stats</button>
               </div>
             </div>
           </div>
