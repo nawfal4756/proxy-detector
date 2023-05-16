@@ -61,7 +61,7 @@ export default function Home({ ip, headerKeys, apiData }) {
       };
     }
 
-    async function requestIpData() {
+    async function checkIP() {
       const data = await axios.get(`https://api.incolumitas.com/?q=${ip}`);
       setReqData(data.data);
       let dataStored = data.data;
@@ -149,7 +149,7 @@ export default function Home({ ip, headerKeys, apiData }) {
 
     checkHeaders();
     find_public_IP();
-    requestIpData();
+    checkIP();
     checkTimezone();
   }, [ip, headerKeys, apiData]);
 
@@ -222,9 +222,9 @@ export default function Home({ ip, headerKeys, apiData }) {
                   </p>
                 </div>
               </div>
-              <div className="col-sm-12">
+              {/* <div className="col-sm-12">
                 <button className="btn btn-secondary" onClick={() => {setIpCheck(!ipCheck)}}>View Stats</button>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -279,19 +279,6 @@ export default function Home({ ip, headerKeys, apiData }) {
                     </div>
                   </li>
                 </ul>
-                <form className="d-flex my-2 my-lg-0">
-                  <input
-                    className="form-control me-sm-2"
-                    type="text"
-                    placeholder="Search"
-                  />
-                  <button
-                    className="btn btn-outline-success my-2 my-sm-0"
-                    type="submit"
-                  >
-                    Search
-                  </button>
-                </form>
               </div>
             </div>
           </nav>
